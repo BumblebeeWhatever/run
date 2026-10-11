@@ -1,0 +1,48 @@
+{
+  "env": {
+    "JEV_GATE_MODE": "shadow",
+    "JEV_GATE_URL": "",
+    "JEV_GATE_TIMEOUT_MS": "300"
+  },
+  "hooks": {
+    "PermissionRequest": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3",
+            "args": ["-I", "/ABSOLUTE/PATH/TO/jev-permission-gate/gate.py"],
+            "timeout": 2
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3",
+            "args": ["-I", "/ABSOLUTE/PATH/TO/jev-permission-gate/record.py"],
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3",
+            "args": ["-I", "/ABSOLUTE/PATH/TO/jev-permission-gate/record.py"],
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}
